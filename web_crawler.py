@@ -24,5 +24,5 @@ for i in range(1,2):
     priceList.append(p.text);
 
 # df = pd.DataFrame({'Column1': titleList, 'Column2': priceList})
-df = pd.DataFrame({"상품이름": titleList})
+df = pd.DataFrame({"상품": titleList})
 df.to_csv("data.csv", encoding="utf-8", index=False)
