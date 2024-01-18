@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: 시세 정보 수집
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+    - name: Install library
+      run: |
+        pip install requests
+        pip install beautifulsoup4
+        pip install pandas
+        pip install lxml
+    - name: Run python file
+      run: |
+        python3 web_crawler.py
+
+    # commit & push
+    - name: commits
+      run: |
+        git config --global user.email "uugyeong27@gmail.com"
+        git config --global user.name "yugyeong"
+        git add data.csv
+        git commit -m "시세 데이터 수집"
+    - name: push
+      uses: ad-m/github-push-action@master
+      with: 
+        branch: "master"
+        github_token: $
