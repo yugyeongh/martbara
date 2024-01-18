@@ -4,10 +4,8 @@
 name: 시세 정보 수집
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  schedule:
+    - cron: "10 * * * *"
 
 jobs:
   build:
